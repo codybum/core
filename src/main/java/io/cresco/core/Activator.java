@@ -93,7 +93,7 @@ public final class Activator
         final ConfigurationAdmin configAdmin = getConfigurationAdmin( bundleContext );
         final Configuration configuration = configAdmin.getConfiguration( "org.ops4j.pax.logging", null );
 
-        final Hashtable<String, Object> log4jProps = new Hashtable<String, Object>();
+        final Hashtable<String, Object> log4jProps = new Hashtable<>();
         log4jProps.put( "log4j.rootLogger", "INFO, CONSOLE" );
         log4jProps.put( "log4j.appender.CONSOLE", "org.apache.log4j.ConsoleAppender" );
         log4jProps.put( "log4j.appender.CONSOLE.layout", "org.apache.log4j.PatternLayout" );
@@ -102,7 +102,6 @@ public final class Activator
         log4jProps.put( "log4j.category.org.ops4j.pax","ERROR");
         log4jProps.put( "log4j.category.com.orientechnologies","ERROR");
         log4jProps.put( "log4j.category.org.hibernate","ERROR");
-        log4jProps.put( "log4j.category.org.apache.activemq","ERROR");
         log4jProps.put( "log4j.category.org.apache.activemq","ERROR");
         log4jProps.put( "log4j.logger.org.apache.activemq.spring","ERROR");
         log4jProps.put( "log4j.logger.org.apache.activemq.web.handler","ERROR");
