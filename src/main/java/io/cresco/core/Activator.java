@@ -98,18 +98,19 @@ public final class Activator
         log4jProps.put( "log4j.appender.CONSOLE", "org.apache.log4j.ConsoleAppender" );
         log4jProps.put( "log4j.appender.CONSOLE.layout", "org.apache.log4j.PatternLayout" );
         log4jProps.put( "log4j.appender.CONSOLE.layout.ConversionPattern", pattern );
-
+        log4jProps.put( "log4j.category.org.apache.felix","ERROR");
+        log4jProps.put( "log4j.category.org.ops4j.pax","ERROR");
         log4jProps.put( "log4j.category.com.orientechnologies","ERROR");
         log4jProps.put( "log4j.category.org.hibernate","ERROR");
         log4jProps.put( "log4j.category.org.apache.activemq","ERROR");
         log4jProps.put( "log4j.category.org.apache.activemq","ERROR");
-        log4jProps.put( "log4j.logger.org.apache.activemq.spring","WARN");
-        log4jProps.put( "log4j.logger.org.apache.activemq.web.handler","WARN");
-        log4jProps.put( "log4j.logger.org.springframework","WARN");
-        log4jProps.put( "log4j.logger.org.apache.xbean","WARN");
-        log4jProps.put( "log4j.logger.org.apache.camel","INFO");
-        log4jProps.put( "log4j.logger.org.eclipse.jetty","WARN");
-        log4jProps.put( "log4j.logger.org.apache.activemq.broker","WARN");
+        log4jProps.put( "log4j.logger.org.apache.activemq.spring","ERROR");
+        log4jProps.put( "log4j.logger.org.apache.activemq.web.handler","ERROR");
+        log4jProps.put( "log4j.logger.org.springframework","ERROR");
+        log4jProps.put( "log4j.logger.org.apache.xbean","ERROR");
+        log4jProps.put( "log4j.logger.org.apache.camel","ERROR");
+        log4jProps.put( "log4j.logger.org.eclipse.jetty","ERROR");
+        log4jProps.put( "log4j.logger.org.apache.activemq.broker","ERROR");
         log4jProps.put( "log4j.logger.org.apache.activemq","ERROR");
 
 
