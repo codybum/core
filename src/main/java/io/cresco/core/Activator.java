@@ -99,11 +99,10 @@ public final class Activator
         log4jProps.put( "log4j.appender.CONSOLE.layout", "org.apache.log4j.PatternLayout" );
         log4jProps.put( "log4j.appender.CONSOLE.layout.ConversionPattern", pattern );
 
+        log4jProps.put( "log4j.category.com.orientechnologies","ERROR");
+        log4jProps.put( "log4j.category.org.hibernate","ERROR");
         log4jProps.put( "log4j.category.org.apache.activemq","ERROR");
-
-        /*
-
-
+        log4jProps.put( "log4j.category.org.apache.activemq","ERROR");
         log4jProps.put( "log4j.logger.org.apache.activemq.spring","WARN");
         log4jProps.put( "log4j.logger.org.apache.activemq.web.handler","WARN");
         log4jProps.put( "log4j.logger.org.springframework","WARN");
@@ -112,7 +111,7 @@ public final class Activator
         log4jProps.put( "log4j.logger.org.eclipse.jetty","WARN");
         log4jProps.put( "log4j.logger.org.apache.activemq.broker","WARN");
         log4jProps.put( "log4j.logger.org.apache.activemq","ERROR");
-*/
+
 
         configuration.update( log4jProps );
     }
