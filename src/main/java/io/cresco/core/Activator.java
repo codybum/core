@@ -9,7 +9,9 @@ import org.osgi.service.cm.ConfigurationAdmin;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * Bundle Activator.<br/>
@@ -23,6 +25,9 @@ public final class Activator
         implements BundleActivator
 {
 
+    private List<String> levelList;
+
+
     /**
      * {@inheritDoc}
      * Configures Pax Logging via Configuration Admin.
@@ -30,6 +35,17 @@ public final class Activator
     public void start( final BundleContext bundleContext )
             throws Exception
     {
+
+        levelList = new ArrayList<>();
+        levelList.add("OFF");
+        levelList.add("FATAL");
+        levelList.add("ERROR");
+        levelList.add("WARN");
+        levelList.add("INFO");
+        levelList.add("DEBUG");
+        levelList.add("TRACE");
+        levelList.add("ALL");
+
         updateConfiguration( bundleContext, "%5p [%t] - %m%n" );
 
         installInternalBundleJars(bundleContext,"org.osgi.service.cm-1.6.0.jar").start();
@@ -90,14 +106,22 @@ public final class Activator
                                       final String pattern )
             throws IOException
     {
-        final ConfigurationAdmin configAdmin = getConfigurationAdmin( bundleContext );
-        final Configuration configuration = configAdmin.getConfiguration( "org.ops4j.pax.logging", null );
 
-        final Hashtable<String, Object> log4jProps = new Hashtable<>();
-        log4jProps.put( "log4j.rootLogger", "INFO, CONSOLE" );
+        String rootLogLevel = System.getProperty("root_log_level","INFO");
+        rootLogLevel = rootLogLevel.toUpperCase();
+        if(!levelList.contains(rootLogLevel)) {
+            rootLogLevel = "INFO";
+        }
+
+        ConfigurationAdmin configAdmin = getConfigurationAdmin( bundleContext );
+        Configuration configuration = configAdmin.getConfiguration( "org.ops4j.pax.logging", null );
+
+        Hashtable<String, Object> log4jProps = new Hashtable<>();
+        log4jProps.put( "log4j.rootLogger", rootLogLevel + ", CONSOLE" );
         log4jProps.put( "log4j.appender.CONSOLE", "org.apache.log4j.ConsoleAppender" );
         log4jProps.put( "log4j.appender.CONSOLE.layout", "org.apache.log4j.PatternLayout" );
         log4jProps.put( "log4j.appender.CONSOLE.layout.ConversionPattern", pattern );
+
         log4jProps.put( "log4j.category.org.apache.felix","ERROR");
         log4jProps.put( "log4j.category.org.ops4j.pax","ERROR");
         log4jProps.put( "log4j.category.com.orientechnologies","ERROR");
@@ -111,7 +135,8 @@ public final class Activator
         log4jProps.put( "log4j.logger.org.eclipse.jetty","ERROR");
         log4jProps.put( "log4j.logger.org.apache.activemq.broker","ERROR");
         log4jProps.put( "log4j.logger.org.apache.activemq","ERROR");
-
+        log4jProps.put( "log4j.logger.org.osgi","OFF");
+        log4jProps.put( "log4j.logger.osgi","OFF");
 
         configuration.update( log4jProps );
     }
